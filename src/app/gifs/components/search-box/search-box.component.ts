@@ -8,7 +8,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
       type="text"
       class="form-control"
       placeholder="Buscar gif..."
-      (keyup.enter)="searchTag(txtTagInput.value)"
+      (keyup.enter)="searchTag()"
       #txtTagInput
     >
   `,

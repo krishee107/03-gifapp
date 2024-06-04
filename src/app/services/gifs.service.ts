@@ -1,8 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Gif, SearchResponse } from '../gifs/interfaces/gifs.interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class GifsService {
+  public gifsList: Gif[] = [];
+
   private _tagsHistory: string[] = [];
   private apiKey: string = 'NayAtUIKqDLGUaVHCAxbR2KYYv7Rq2Ah';
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs';
@@ -38,9 +41,9 @@ export class GifsService {
       .set('limit', '10')
       .set('q', tag);
 
-    this.http.get(`${this.serviceUrl}/search?`, { params })
-      .subscribe((resp: any) => { //Observable -> Un observable es una colección de funciones que se ejecutan de forma secuencial o asincrónica.
-        console.log(resp.data);
+    this.http.get<SearchResponse>(`${this.serviceUrl}/search?`, { params })
+      .subscribe((resp) => { //Observable -> Un observable es una colección de funciones que se ejecutan de forma secuencial o asincrónica.
+        this.gifsList = resp.data;
       });
 
   }
